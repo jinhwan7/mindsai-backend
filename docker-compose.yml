@@ -1,0 +1,56 @@
+version: '3.8'
+services:
+  mindsai-server:
+    image: node:20.17.0
+    container_name: mindsai-server
+    command: sh -c "npm install -g pnpm@9.4.0 && npm install -g pm2 && cd ./app && pnpm config set store-dir ./.pnpm-store && pnpm install --frozen-lockfile && pnpm build:back-end:api-prod && cd ./apps/server/apps/product-page-api && pm2-runtime start ecosystem.config.js --env development"
+    env_file:
+      - apps/server/.env
+    volumes:
+      - ./package.json:/app/package.json
+      - ./turbo.json:/app/turbo.json
+      - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+      - ./.npmrc:/app/.npmrc
+      - ./versions.json:/app/versions.json
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ./apps/server/package.json:/app/apps/server/package.json
+      - ./apps/server:/app/apps/server/
+      - ./packages:/app/packages/
+    ports:
+      - '8080:8080'
+    restart: always
+    networks:
+      - my-network
+
+  mysql-db: # 서비스 명
+    image: mysql:latest # 사용할 이미지
+    restart: always
+    container_name: mysql-db # 컨테이너 이름 설정
+    networks:
+      - my-network
+    ports:
+      - 3306:3306 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+    volumes:
+      - ./apps/server/scripts/rs-init.sh:/scripts/rs-init.sh
+      - /Users/Shared/data/mongo-db:/data/db # -v 옵션 (다렉토리 마운트 설정)
+    command: mongod --replSet replset --port 9042
+
+  mysql-db: # 서비스 명
+    image: mysql:latest # 사용할 이미지
+    restart: always
+    container_name: mysql-db # 컨테이너 이름 설정
+    networks:
+      - my-network
+    ports:
+      - 3306:3306 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
+    volumes:
+      - /Users/Shared/data/mysql-db:/var/lib/mysql # 데이터 디렉토리 마운트 설정
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password # MySQL root 비밀번호 설정
+      MYSQL_DATABASE:  # 초기 데이터베이스 이름 설정
+      MYSQL_USER: your_username # 사용자 이름 설정
+      MYSQL_PASSWORD: your_user_password # 사용자 비밀번호 설정
+
+networks:
+  my-network:
+    driver: bridge
