@@ -2,7 +2,12 @@
 
 - 프로젝트의 목적과 주요 기능을 간략히 설명
 
-# 기술 스택
+# 라이브러리
+
+- bycript : password 암호화
+- ts-rest : 편리한 end-to-end 타입 안정성과 api-doc을 한번에 작성할 수 있어서 편함
+- typeorm : db 연동
+- zod : 유효성 검사
 
 - 기술 스택은 프로젝트에서 사용된 기술과 도구를 나열
 
@@ -23,3 +28,8 @@
 ```
 npm run script
 ```
+
+# 클래스 다이어그램으로 표현하기
+
+특정 이슈들로 orm을 바꿔야할 경우도 있는데 너무 강결합되어있으면 바꿀때 힘들것 같아서 고민해봤습니다
+[Moving from TypeORM to MikroORM](https://github.com/medusajs/medusa/discussions/4431)
