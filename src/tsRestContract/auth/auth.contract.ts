@@ -34,7 +34,7 @@ export const authApi = c.router({
     method: 'GET',
     path: `${authUrl}/refresh`,
     responses: {
-      200: z.any(),
+      200: z.literal('success'),
       404: z.literal('Not Found'),
       500: z.literal('Server Error'),
     },
