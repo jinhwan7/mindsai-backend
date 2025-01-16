@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "script": "docker-compose up -d --build"
+    "script": "docker-compose down --volumes && docker-compose up -d --build"
   },
   "dependencies": {
     "@anatine/zod-openapi": "^2.2.6",
