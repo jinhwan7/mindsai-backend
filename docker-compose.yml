@@ -23,6 +23,7 @@ services:
       - 3306:3306 # 접근 포트 설정 (컨테이너 외부:컨테이너 내부)
     volumes:
       - /Users/Shared/data/mysql-db:/var/lib/mysql # 데이터 디렉토리 마운트 설정
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     env_file:
       - src/.env
 
