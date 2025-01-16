@@ -1,29 +1,52 @@
 export class User {
   constructor(
-    private id: number,
-    private uniqueName: string,
-    private nickName: string,
-    private password: string,
-    private refreshToken?: string,
+    private _id: number,
+    private _uniqueName: string,
+    private _nickName: string,
+    private _password: string,
+    private _refreshToken: string,
   ) {}
 
-  getId(): Readonly<number> {
-    return this.id;
+  get id(): Readonly<number> {
+    return this._id;
   }
 
-  getUniqueName(): Readonly<string> {
-    return this.uniqueName;
+  get uniqueName(): Readonly<string> {
+    return this._uniqueName;
   }
 
-  getNickName(): Readonly<string> {
-    return this.nickName;
+  get nickName(): Readonly<string> {
+    return this._nickName;
   }
 
-  getPassword(): Readonly<string> {
-    return this.password;
+  get password(): Readonly<string> {
+    return this._password;
   }
 
-  getRefreshToken(): Readonly<string> {
-    return this.refreshToken;
+  get refreshToken(): Readonly<string> {
+    return this._refreshToken;
+  }
+
+  set password(value: string) {
+    this._password = value;
+  }
+
+  set refreshToken(value: string) {
+    this._refreshToken = value;
+  }
+  static from(data: {
+    id?: number;
+    uniqueName: string;
+    nickName: string;
+    password: string;
+    refreshToken?: string;
+  }) {
+    return new User(
+      data.id ?? NaN,
+      data.uniqueName,
+      data.nickName,
+      data.password,
+      data.refreshToken ?? '',
+    );
   }
 }
