@@ -2,6 +2,7 @@
 
 - 아래 스크립트를 실행하면 docker-compose.yml 파일을 기반으로  
 `docker` 컨테이너가 db 1개, server 1개 띄워집니다
+- mysql에는 user테이블에 3개의 row로 초기화 하였습니다
 
 
 ```
