@@ -1,8 +1,24 @@
 # 프로젝트 실행 방법
 
-- 아래 스크립트를 실행하면 docker-compose.yml 파일을 기반으로  
+
+1. `src/.env` 파일을 아래와 같은 key로 만들어 줍니다
+
+```bash
+MYSQL_DB_HOST=mysql-db
+MYSQL_DB_PORT=3306
+
+MYSQL_ROOT_PASSWORD=root
+MYSQL_DATABASE=mindsai_db
+MYSQL_USER=good
+MYSQL_PASSWORD=good
+
+
+HTTP_HOST=0.0.0.0
+```
+3. 아래 스크립트를 실행하면 docker-compose.yml 파일을 기반으로  
 `docker` 컨테이너가 db 1개, server 1개 띄워집니다
-- mysql에는 user테이블에 3개의 row로 초기화 하였습니다
+
+4. mysql에는 user테이블에 3개의 row로 초기화 하였습니다
 
 
 ```
